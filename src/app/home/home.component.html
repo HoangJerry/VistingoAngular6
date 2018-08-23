@@ -1,0 +1,111 @@
+<div class="container panel">
+    <p class="panel-heading">Awesome series finder</p>
+    <form class="search-form field has-addons">
+      <p class="control">
+        <span class="select">
+          <select>
+            <option>Series</option>
+          </select>
+        </span>
+      </p>
+      <p class="control search-form__input">
+        <input [(ngModel)]="query" name="search" class="input" type="text" placeholder="Search"  >
+      </p>
+      <p class="control">
+        <button class="button" (click)="onEnterSearch()">Search</button>
+      </p>
+    </form>
+
+    <!-- block search-results -->
+    <ul class="panel-block search-results" *ngIf="results">
+      <!-- search result example -->
+      <li class="box" *ngFor="let result of results">
+        <article class="media">
+          <div class="media-left cover">
+            <figure class="image cover__image">
+              <img src="{{result.show.image.medium}}" alt="{{result.show.name}}">
+            </figure>
+          </div>
+          <div class="media-content">
+            <p><strong>{{result.show.name}}</strong> <small>({{result.show.type}})</small></p>
+            <span class="tag" *ngFor="let genre of result.show.genres">{{genre}}</span>
+          </div>
+          <div class="media-right">
+            <a class="button is-success is-outlined" (click)="onClickSave(result)">
+              <span>Save</span>
+              <span class="icon is-small"><i class="fa fa-heart"></i></span>
+            </a>
+          </div>
+        </article>
+      </li>
+      <!-- end search result example -->
+
+    </ul>
+    <!-- endblock Search-results -->
+
+    <!-- block favorites -->
+    <p class="panel-heading">
+      Favorites
+    </p>
+    <div  class="panel-block favorites">
+      <ul *ngIf="fav_results">
+        <!-- not selected favorite item example -->
+        <li class="box favorites__item" [class.selected]="selected[i]" *ngFor="let fav_result of fav_results, let i = index" (click)="onClickSelect(i)">
+          <article class="media">
+            <div class="media-left cover">
+              <figure class="image cover__image">
+                <img src="{{fav_result.show.image.medium}}" alt="{{fav_result.show.name}}">
+              </figure>
+            </div>
+            <div class="media-content">
+              <p><strong>{{fav_result.show.name}}</strong> <small>({{fav_result.show.type}})</small></p>
+              <span class="tag" *ngFor="let genre of fav_result.show.genres">{{genre}}</span>
+            </div>
+            <div class="media-right">
+              <span class="button is-info is-outlined">
+                <span>Selected</span>
+                <span class="icon is-small"><i class="fa fa-check"></i></span>
+              </span>
+            </div>
+          </article>
+        </li>
+        <!-- end not selected favorite item example -->
+
+        <!-- selected favorite item example -->
+        <!-- <li class="box favorites__item selected">
+          <article class="media">
+            <div class="media-left cover">
+              <figure class="image cover__image">
+                <img src="http://static.tvmaze.com/uploads/images/medium_portrait/121/304437.jpg" alt="Vikings">
+              </figure>
+            </div>
+            <div class="media-content">
+              <p><strong>Vikings</strong> <small>(History)</small></p>
+              <span class="tag">Drama</span>
+              <span class="tag">Action</span>
+              <span class="tag">History</span>
+            </div>
+            <div class="media-right">
+              <span class="button is-info is-outlined">
+                <span>Selected</span>
+                <span class="icon is-small"><i class="fa fa-check"></i></span>
+              </span>
+            </div>
+          </article>
+        </li> -->
+        <!-- selected favorite item example -->
+
+      </ul>
+      <div class="media favorites__actions">
+		
+        <p class="media-content"><strong>{{selected_num}}</strong> items selected</p>
+        <p class="media-right">
+          <span class="button is-danger is-outlined" (click)="onClickDelete()">
+            <span>Delete selected</span>
+            <span class="icon is-small"><i class="fa fa-times"></i></span>
+          </span>
+        </p>
+      </div>
+    </div>
+    <!-- endblock favorites -->
+  </div>
